@@ -8,6 +8,7 @@ export default class MyDocument extends Document {
 			<html lang="en">
 				<Head>
 					{/* Use minimum-scale=1 to enable GPU rasterization */}
+					<link rel="shortcut icon" href="/favicon.ico" />
 					<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
 					<link
 						rel="stylesheet"
