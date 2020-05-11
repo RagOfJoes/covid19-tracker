@@ -1,0 +1,41 @@
+{
+	"name": "covid19-tracker",
+	"version": "0.0.1",
+	"description": "Weekend Project - Covid 19 Tracker",
+	"main": "server.js",
+	"scripts": {
+		"build": "next build",
+		"start": "next start",
+		"dev": "node server.js"
+	},
+	"keywords": [
+		"Covid-19",
+		"covid-19",
+		"Coronavirus",
+		"coronavirus",
+		"React",
+		"NextJS"
+	],
+	"author": "Victor Ragojos",
+	"license": "MIT",
+	"dependencies": {
+		"@material-ui/core": "^4.9.13",
+		"@material-ui/icons": "^4.9.1",
+		"@material-ui/lab": "^4.0.0-alpha.52",
+		"@material-ui/pickers": "^3.2.10",
+		"express": "^4.17.1",
+		"framer-motion": "^1.10.3",
+		"isomorphic-unfetch": "^3.0.0",
+		"lodash": "^4.17.15",
+		"moment": "^2.25.3",
+		"next": "^9.3.6",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-lazyload": "^2.6.7",
+		"react-waypoint": "^9.0.2",
+		"recharts": "^2.0.0-beta.5"
+	},
+	"devDependencies": {
+		"dotenv": "^8.2.0"
+	}
+}
