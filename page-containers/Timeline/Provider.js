@@ -1,3 +1,4 @@
+import useCountries from '../../lib/hooks/useCountries';
 import { createContext, useMemo, useState, useContext } from 'react';
 import useTimelineByCountry from '../../lib/hooks/useTimelineByCountry';
 
@@ -20,7 +21,7 @@ const TimelineProvider = ({ country, children }) => {
 		loading: false,
 		data: [{ cases: 0, deaths: 0, recovered: 0, last_update: new Date() }],
 	});
-
+	useCountries(setCountries);
 	useTimelineByCountry(timelineCountry.alpha2, setTimeline);
 
 	const value = useMemo(

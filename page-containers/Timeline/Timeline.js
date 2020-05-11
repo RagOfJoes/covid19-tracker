@@ -134,19 +134,18 @@ export default () => {
 	return (
 		<>
 			<Grid item xs={12} container alignItems="center" justify="flex-end">
-				<Grid item>
-					<CountrySelect
-						countries={countries}
-						country={timelineCountry}
-						setCountries={setCountries}
-						setCountry={(c) => {
-							setTimlineCountry({ ...c });
-							Router.push({ query: c.alpha2, pathname: '/timeline' }, `/timeline/${c.alpha2}`, {
-								shallow: true,
-							});
-						}}
-					/>
-				</Grid>
+				<CountrySelect
+					countries={countries}
+					country={timelineCountry}
+					setCountries={setCountries}
+					loading={timelineCountry.name.length === 0 || timeline.loading}
+					setCountry={(c) => {
+						setTimlineCountry({ ...c });
+						Router.push({ query: c.alpha2, pathname: '/timeline' }, `/timeline/${c.alpha2}`, {
+							shallow: true,
+						});
+					}}
+				/>
 			</Grid>
 
 			<Grid item sm={4} xs={12}>

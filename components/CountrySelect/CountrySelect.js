@@ -1,37 +1,24 @@
-import fetch from 'isomorphic-unfetch';
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import LanguageIcon from '@material-ui/icons/Language';
 import { Typography, Grid, IconButton, Menu, MenuItem } from '@material-ui/core';
 
-export default ({ country, setCountry, countries, setCountries }) => {
+export default ({ loading, country, setCountry, countries, setCountries }) => {
 	const [open, toggleOpen] = useState(false);
-	const [loading, toggleLoading] = useState(false);
 	const [countryRef, setCountryRef] = useState(null);
-
-	const fetchCountries = async () => {
-		toggleLoading(true);
-		const res = await fetch(`/api/countries`, {
-			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': 'GET',
-			},
-		});
-		const json = await res.json();
-		setCountries(json);
-		toggleLoading(false);
-	};
 
 	return (
 		<>
-			<Typography variant="button">
-				{country.alpha2}({country.name})
-			</Typography>
+			{loading ? (
+				<Skeleton width={80} height={40} component="p" />
+			) : (
+				<Typography variant="button">
+					{country.alpha2}({country.name})
+				</Typography>
+			)}
+
 			<IconButton
 				onClick={(e) => {
-					if (!countries || countries.length === 0) {
-						fetchCountries();
-					}
 					setCountryRef(e.currentTarget);
 					toggleOpen(true);
 				}}
@@ -56,34 +43,6 @@ export default ({ country, setCountry, countries, setCountries }) => {
 					},
 				}}
 			>
-				{loading && (
-					<Grid item container spacing={1} direction="column">
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-						<Grid item xs={12}>
-							<Skeleton width="100%" height={39} variant="rect" />
-						</Grid>
-					</Grid>
-				)}
 				{!loading &&
 					countries.map((option) => (
 						<MenuItem
