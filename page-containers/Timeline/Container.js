@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useEffect, memo } from 'react';
+import Router from 'next/router';
 import Timeline from './Timeline';
+import { useEffect, memo } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useTimelineContext } from './Provider';
 import Container from '@material-ui/core/Container';
@@ -35,6 +36,14 @@ export default memo((props) => {
 		const foundCountry = _.find(props.countries, (v) => v.alpha2.toLowerCase() === timelineCountry.alpha2.toLowerCase());
 		if (foundCountry && timelineCountry.name.length === 0) {
 			setTimlineCountry({ name: foundCountry.name, alpha2: foundCountry.alpha2 });
+		}
+
+		if (!foundCountry) {
+			setTimlineCountry({ name: props.countries[0].name, alpha2: props.countries[0].alpha2 });
+			Router.replace(
+				{ query: { content: props.countries[0].alpha2 }, pathname: '/timeline/[country]' },
+				'/timeline/' + props.countries[0].alpha2
+			);
 		}
 	}, []);
 

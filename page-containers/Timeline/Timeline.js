@@ -141,7 +141,9 @@ export default memo(() => {
 					setCountries={setCountries}
 					loading={timelineCountry.name.length === 0 || timeline.loading}
 					setCountry={(c) => {
-						Router.push({ query: c.alpha2, pathname: '/timeline/[country]' }, `/timeline/${c.alpha2}`, { shallow: true });
+						Router.push({ query: c.alpha2, pathname: '/timeline/[country]' }, `/timeline/${c.alpha2}`, {
+							shallow: true,
+						});
 						setTimlineCountry({ ...c });
 					}}
 				/>
@@ -200,38 +202,36 @@ export default memo(() => {
 				</Grid>
 				<Paper elevation={0} style={{ backgroundColor: 'transparent' }}>
 					<Grid item className={classes.chart}>
-						{
-							<LineChart
-								height={355}
-								data={timeline.data}
-								tooltipProps={{
-									content: ({ active, label, payload }) => {
-										return (
-											<Paper className={classes.paper}>
-												<Grid container direction="column">
-													<Grid item>
-														<Typography variant="subtitle1">
-															Date: {moment(label).format('M/D/YYYY')}
-														</Typography>
-													</Grid>
-
-													{payload &&
-														payload.map((entry, index) => {
-															const { name, value } = entry;
-															return (
-																<Typography key={`item-${index}`} variant="subtitle2">
-																	{name.charAt(0).toUpperCase() + name.slice(1)}:{' '}
-																	{formatNumber(value, 0)}
-																</Typography>
-															);
-														})}
+						<LineChart
+							height={355}
+							data={timeline.data}
+							tooltipProps={{
+								content: ({ active, label, payload }) => {
+									return (
+										<Paper className={classes.paper}>
+											<Grid container direction="column">
+												<Grid item>
+													<Typography variant="subtitle1">
+														Date: {moment(label).format('M/D/YYYY')}
+													</Typography>
 												</Grid>
-											</Paper>
-										);
-									},
-								}}
-							/>
-						}
+
+												{payload &&
+													payload.map((entry, index) => {
+														const { name, value } = entry;
+														return (
+															<Typography key={`item-${index}`} variant="subtitle2">
+																{name.charAt(0).toUpperCase() + name.slice(1)}:{' '}
+																{formatNumber(value, 0)}
+															</Typography>
+														);
+													})}
+											</Grid>
+										</Paper>
+									);
+								},
+							}}
+						/>
 					</Grid>
 				</Paper>
 			</Grid>

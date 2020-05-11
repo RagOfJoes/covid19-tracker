@@ -1,13 +1,12 @@
-import fetch from 'isomorphic-unfetch';
-import Timeline from '../../page-containers/Timeline';
+import redirect from '../../lib/redirect';
+
 const Index = (props) => {
-	return <Timeline {...props} />;
+	return <h1>Redirecting...</h1>;
 };
 
-export const getServerSideProps = async ({ query }) => {
-	const res = await fetch(`${process.env.API_ENDPOINT}/countries`);
-	const json = await res.json();
-	return { props: { ...query, countries: json } };
+export const getServerSideProps = async ({ query, ...ctx }) => {
+	redirect(ctx, '/timeline/US');
+	return { props: {} };
 };
 
 export default Index;
