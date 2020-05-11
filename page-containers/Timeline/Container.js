@@ -27,17 +27,16 @@ const useStyles = makeStyles(({ palette, spacing, typography }) => ({
 export default (props) => {
 	const theme = useTheme();
 	const classes = useStyles();
-	const { countries, timelineCountry, setTimlineCountry, setTimeline } = useTimelineContext();
+	const { setCountries, timelineCountry, setTimlineCountry, setTimeline } = useTimelineContext();
 	const shadow = useNeumorphShadowStyles({ spread: 1, blurLength: 7, bgColor: theme.palette.secondary.main });
 
 	useEffect(() => {
-		if (countries.length === 0) return;
-
+		setCountries(props.countries || []);
 		setTimeline((prev) => ({ ...prev, loading: false }));
-		const foundCountry = _.find(countries, (v) => v.alpha2.toLowerCase() === timelineCountry.alpha2.toLowerCase());
+		const foundCountry = _.find(props.countries, (v) => v.alpha2.toLowerCase() === timelineCountry.alpha2.toLowerCase());
 		if (foundCountry) setTimlineCountry({ name: foundCountry.name, alpha2: foundCountry.alpha2 });
 		setTimeline((prev) => ({ ...prev, loading: false }));
-	}, [countries]);
+	}, []);
 
 	return (
 		<>
