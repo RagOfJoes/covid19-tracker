@@ -4,8 +4,8 @@
 	"description": "Weekend Project - Covid 19 Tracker",
 	"main": "server.js",
 	"scripts": {
+		"dev": "next",
 		"build": "next build",
-		"dev": "node server.js",
 		"start": "next start -p $PORT",
 		"deploy": "rm -rf node_modules/.cache && next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy Next.js to gh-pages\" && git subtree push --prefix out origin gh-pages"
 	},
@@ -24,7 +24,6 @@
 		"@material-ui/icons": "^4.9.1",
 		"@material-ui/lab": "^4.0.0-alpha.52",
 		"@material-ui/pickers": "^3.2.10",
-		"express": "^4.17.1",
 		"framer-motion": "^1.10.3",
 		"isomorphic-unfetch": "^3.0.0",
 		"lodash": "^4.17.15",

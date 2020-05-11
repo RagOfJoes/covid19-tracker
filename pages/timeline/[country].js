@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch';
-import Timeline from '../page-containers/Timeline';
+import Timeline from '../../page-containers/Timeline';
 const Index = (props) => {
 	return <Timeline {...props} />;
 };
