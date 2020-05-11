@@ -5,7 +5,7 @@ const TimelineContext = createContext({
 	countries: [],
 	setCountries: () => {},
 
-	timelineCountry: '',
+	timelineCountry: { alpha2: '', name: '' },
 	setTimlineCountry: () => {},
 
 	timeline: { loading: false, data: [] },
@@ -34,7 +34,7 @@ const TimelineProvider = ({ country, children }) => {
 			timelineCountry,
 			setTimlineCountry,
 		}),
-		[countries, timeline]
+		[timeline]
 	);
 
 	return <TimelineContext.Provider value={value}>{children}</TimelineContext.Provider>;

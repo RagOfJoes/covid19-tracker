@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import Timeline from './Timeline';
 import Grid from '@material-ui/core/Grid';
 import { useTimelineContext } from './Provider';
@@ -24,18 +24,18 @@ const useStyles = makeStyles(({ palette, spacing, typography }) => ({
 	},
 }));
 
-export default (props) => {
+export default memo((props) => {
 	const theme = useTheme();
 	const classes = useStyles();
-	const { setCountries, timelineCountry, setTimlineCountry, setTimeline } = useTimelineContext();
+	const { countries, setCountries, timelineCountry, setTimlineCountry } = useTimelineContext();
 	const shadow = useNeumorphShadowStyles({ spread: 1, blurLength: 7, bgColor: theme.palette.secondary.main });
 
 	useEffect(() => {
-		setCountries(props.countries || []);
-		setTimeline((prev) => ({ ...prev, loading: false }));
+		if (countries.length === 0) setCountries(props.countries);
 		const foundCountry = _.find(props.countries, (v) => v.alpha2.toLowerCase() === timelineCountry.alpha2.toLowerCase());
-		if (foundCountry) setTimlineCountry({ name: foundCountry.name, alpha2: foundCountry.alpha2 });
-		setTimeline((prev) => ({ ...prev, loading: false }));
+		if (foundCountry && timelineCountry.name.length === 0) {
+			setTimlineCountry({ name: foundCountry.name, alpha2: foundCountry.alpha2 });
+		}
 	}, []);
 
 	return (
@@ -89,4 +89,4 @@ export default (props) => {
 			</Container>
 		</>
 	);
-};
+});

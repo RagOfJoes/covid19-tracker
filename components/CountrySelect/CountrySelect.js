@@ -3,7 +3,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import LanguageIcon from '@material-ui/icons/Language';
 import { Typography, Grid, IconButton, Menu, MenuItem } from '@material-ui/core';
 
-export default ({ loading, country, setCountry, countries, setCountries }) => {
+export default ({ loading, country, setCountry, countries }) => {
 	const [open, toggleOpen] = useState(false);
 	const [countryRef, setCountryRef] = useState(null);
 

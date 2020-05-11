@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { memo } from 'react';
 import Router from 'next/router';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -115,7 +116,7 @@ const CardValue = ({ loading, data, title, latestNumber, diffNumber }) => {
 	}
 };
 
-export default () => {
+export default memo(() => {
 	const theme = useTheme();
 	const classes = useStyles();
 	const shadow = useNeumorphShadowStyles({ bgColor: theme.palette.background.default });
@@ -140,10 +141,8 @@ export default () => {
 					setCountries={setCountries}
 					loading={timelineCountry.name.length === 0 || timeline.loading}
 					setCountry={(c) => {
+						Router.push({ query: c.alpha2, pathname: '/timeline/[country]' }, `/timeline/${c.alpha2}`, { shallow: true });
 						setTimlineCountry({ ...c });
-						Router.push({ query: c.alpha2, pathname: '/timeline' }, `/timeline/${c.alpha2}`, {
-							shallow: true,
-						});
 					}}
 				/>
 			</Grid>
@@ -201,36 +200,38 @@ export default () => {
 				</Grid>
 				<Paper elevation={0} style={{ backgroundColor: 'transparent' }}>
 					<Grid item className={classes.chart}>
-						<LineChart
-							height={355}
-							data={timeline.data}
-							tooltipProps={{
-								content: ({ active, label, payload }) => {
-									return (
-										<Paper className={classes.paper}>
-											<Grid container direction="column">
-												<Grid item>
-													<Typography variant="subtitle1">
-														Date: {moment(label).format('M/D/YYYY')}
-													</Typography>
-												</Grid>
+						{
+							<LineChart
+								height={355}
+								data={timeline.data}
+								tooltipProps={{
+									content: ({ active, label, payload }) => {
+										return (
+											<Paper className={classes.paper}>
+												<Grid container direction="column">
+													<Grid item>
+														<Typography variant="subtitle1">
+															Date: {moment(label).format('M/D/YYYY')}
+														</Typography>
+													</Grid>
 
-												{payload &&
-													payload.map((entry, index) => {
-														const { name, value } = entry;
-														return (
-															<Typography key={`item-${index}`} variant="subtitle2">
-																{name.charAt(0).toUpperCase() + name.slice(1)}:{' '}
-																{formatNumber(value, 0)}
-															</Typography>
-														);
-													})}
-											</Grid>
-										</Paper>
-									);
-								},
-							}}
-						/>
+													{payload &&
+														payload.map((entry, index) => {
+															const { name, value } = entry;
+															return (
+																<Typography key={`item-${index}`} variant="subtitle2">
+																	{name.charAt(0).toUpperCase() + name.slice(1)}:{' '}
+																	{formatNumber(value, 0)}
+																</Typography>
+															);
+														})}
+												</Grid>
+											</Paper>
+										);
+									},
+								}}
+							/>
+						}
 					</Grid>
 				</Paper>
 			</Grid>
@@ -246,4 +247,4 @@ export default () => {
 			</Grid>
 		</>
 	);
-};
+});
