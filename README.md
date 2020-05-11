@@ -1,2 +1,2 @@
 # covid19-tracker
- Weekend Project - Covid-19 Tracker 
+Small weekend project to track the Coronavirus
